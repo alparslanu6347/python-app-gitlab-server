@@ -1,0 +1,43 @@
+stages:
+    - test
+    - build_stage
+    - push_stage
+    - deploy_stage
+
+test_server:
+    stage: test
+    script:
+        - pwd
+        - ls
+        - whoami
+        - docker ps
+        - docker ps -a
+        - docker images
+    tags:
+        - python-app    
+
+
+build:
+    stage: build_stage
+    script:
+        - docker --version
+        - docker build . -t $DOCKER_HUB_USER/python-gitlab-cicd:v$CI_PIPELINE_IID
+    tags:
+        - python-app 
+
+push:
+    stage: push_stage
+    script:
+        - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PWD
+        - docker push $DOCKER_HUB_USER/python-gitlab-cicd:v$CI_PIPELINE_IID
+    tags:
+        - python-app 
+
+
+deploy:
+    stage: deploy_stage
+    script:
+        - docker-compose down -v
+        - docker-compose up -d
+    tags:
+        - python-app
