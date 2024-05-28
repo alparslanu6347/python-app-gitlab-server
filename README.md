@@ -1,4 +1,4 @@
- # Launch a gitlab-server for app and install the programmes
+# Launch a gitlab-server for app and install the programmes
 - Go to AWS Management Console, we need a `gitlab-server` and we need to install agent into that server.
 
 - Launch an AWS EC2 instance of Amazon Linux 2023 AMI `t2.micro` with security group allowing ``SSH:22``, ``HTTP:80`` and ``TCP 8080`` ports.
